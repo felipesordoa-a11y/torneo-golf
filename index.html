@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inscripción · Torneo de Golf · Marta &amp; Felipe</title>
+
+<meta property="og:title" content="Torneo de Golf · Marta & Felipe">
+<meta property="og:description" content="Sábado 10 de octubre · Golf de Llanes. Apúntate en 30 segundos.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#2C5741">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   INSCRIPCIÓN · TORNEO DE GOLF · BODA MARTA & FELIPE
+   Mobile-first: el enlace se reparte por WhatsApp, así que
+   el 95 % de las visitas serán móviles en vertical.
+   Paleta y tipografías de bodamartayfelipe.com
+   ============================================================ */
+
+:root{
+  --azul:       #22404F;   /* Team Felipe */
+  --azul-claro: #335A6E;
+  --oliva:      #7C8A5A;
+  --arena:      #D9CDB8;
+  --crema:      #F5F1E8;
+  --blanco:     #FFFDF9;   /* Team Marta */
+  --tinta:      #2B3A42;
+  --verde:      #2C5741;
+  --verde-hondo:#1C3A2B;
+  --error:      #9B3B2E;
+
+  --script:'Pinyon Script',cursive;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost','Helvetica Neue',sans-serif;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  background:var(--verde-hondo);
+  font-family:var(--sans);
+  color:var(--tinta);
+  min-height:100vh;
+  display:flex; justify-content:center;
+  padding:0;
+}
+
+.hoja{
+  width:100%; max-width:560px;
+  background:var(--crema);
+  min-height:100vh;
+  display:flex; flex-direction:column;
+}
+
+/* ================= CABECERA ================= */
+.cab{
+  background:var(--verde);
+  color:var(--blanco);
+  padding:34px 26px 30px;
+  text-align:center;
+  position:relative;
+}
+/* Filo de arena que separa cabecera y cuerpo sin usar un borde plano */
+.cab::after{
+  content:''; position:absolute; left:0; right:0; bottom:0;
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--arena),transparent);
+}
+
+.mono{
+  font-family:var(--script);
+  font-size:30px; line-height:1;
+  color:var(--arena);
+  margin-bottom:18px;
+}
+
+.cab h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:38px; line-height:1.08;
+  letter-spacing:.005em;
+}
+
+.cab .sub{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:19px;
+  color:var(--arena);
+  margin-top:6px;
+}
+
+.cab .meta{
+  margin-top:18px;
+  font-family:var(--sans);
+  font-size:11px; font-weight:400;
+  letter-spacing:.17em; text-transform:uppercase;
+  color:rgba(255,253,249,.72);
+  line-height:1.7;
+}
+
+/* ================= CUERPO ================= */
+.cuerpo{ padding:30px 26px 40px; flex:1; }
+
+.intro{
+  font-family:var(--serif);
+  font-size:18px; line-height:1.55;
+  color:#4A5A53;
+  margin-bottom:30px;
+  text-align:center;
+}
+
+/* ---- campos ---- */
+.campo{ margin-bottom:28px; }
+
+.campo > label,
+.campo > .etq{
+  display:block;
+  font-family:var(--sans);
+  font-size:11px; font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--verde);
+  margin-bottom:9px;
+}
+
+.ayuda{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:15px;
+  color:#7A8880;
+  margin:-4px 0 11px;
+  line-height:1.4;
+}
+
+input[type=text],
+input[type=number]{
+  width:100%;
+  font-family:var(--serif);
+  font-size:19px;
+  color:var(--tinta);
+  background:var(--blanco);
+  border:1px solid #D5D0C4;
+  border-radius:3px;
+  padding:15px 16px;
+  transition:border-color .16s, box-shadow .16s;
+  -webkit-appearance:none;
+  appearance:none;
+}
+input::placeholder{ color:#B4B0A6; font-style:italic; }
+
+input:focus{
+  outline:none;
+  border-color:var(--verde);
+  box-shadow:0 0 0 3px rgba(44,87,65,.13);
+}
+
+input.mal{ border-color:var(--error); }
+input.mal:focus{ box-shadow:0 0 0 3px rgba(155,59,46,.13); }
+
+.fallo{
+  display:none;
+  font-family:var(--serif);
+  font-size:15px; font-style:italic;
+  color:var(--error);
+  margin-top:7px;
+}
+.fallo.ver{ display:block; }
+
+/* Quita las flechas del number: molestan en móvil y no aportan */
+input[type=number]{ -moz-appearance:textfield; }
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+
+/* ---- opciones sí / no ---- */
+.opciones{ display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+
+.opcion{ position:relative; }
+.opcion input{
+  position:absolute; opacity:0;
+  width:100%; height:100%; margin:0;
+  cursor:pointer;
+}
+.opcion span{
+  display:block; text-align:center;
+  font-family:var(--serif);
+  font-size:19px;
+  background:var(--blanco);
+  border:1px solid #D5D0C4;
+  border-radius:3px;
+  padding:15px 10px;
+  transition:all .16s;
+}
+.opcion input:checked + span{
+  background:var(--verde);
+  border-color:var(--verde);
+  color:var(--blanco);
+}
+.opcion input:focus-visible + span{
+  box-shadow:0 0 0 3px rgba(44,87,65,.28);
+}
+
+/* ---- mensaje condicional de Game Book ---- */
+.nota{
+  display:none;
+  margin-top:14px;
+  background:var(--blanco);
+  border-left:3px solid var(--oliva);
+  border-radius:0 3px 3px 0;
+  padding:16px 18px;
+}
+.nota.ver{ display:block; animation:entra .22s ease-out; }
+
+@keyframes entra{
+  from{ opacity:0; transform:translateY(-5px); }
+  to  { opacity:1; transform:none; }
+}
+
+.nota p{
+  font-family:var(--serif);
+  font-size:17px; line-height:1.5;
+  color:var(--tinta);
+}
+.nota .firma{
+  display:block;
+  font-family:var(--sans);
+  font-size:11px; font-weight:500;
+  letter-spacing:.13em; text-transform:uppercase;
+  color:var(--oliva);
+  margin-top:10px;
+}
+
+/* ---- botón ---- */
+button{
+  width:100%;
+  font-family:var(--sans);
+  font-size:13px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--blanco);
+  background:var(--verde);
+  border:none; border-radius:3px;
+  padding:19px;
+  cursor:pointer;
+  transition:background .16s;
+  -webkit-appearance:none;
+}
+button:hover:not(:disabled){ background:var(--verde-hondo); }
+button:disabled{ opacity:.55; cursor:default; }
+
+/* ---- pie ---- */
+.pie{
+  text-align:center;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:15px;
+  color:#8D9A92;
+  padding:0 26px 34px;
+}
+
+/* ================= PANTALLA DE GRACIAS ================= */
+.gracias{ display:none; padding:56px 26px 48px; text-align:center; flex:1; }
+.gracias.ver{ display:block; }
+
+.tick{
+  width:62px; height:62px;
+  margin:0 auto 24px;
+  border-radius:50%;
+  background:var(--verde);
+  display:flex; align-items:center; justify-content:center;
+}
+.tick svg{ width:29px; height:29px; }
+
+.gracias h2{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:33px;
+  margin-bottom:12px;
+}
+.gracias .lead{
+  font-family:var(--serif);
+  font-size:18px; line-height:1.55;
+  color:#5A6A62;
+  margin-bottom:28px;
+}
+
+.recuerda{
+  background:var(--blanco);
+  border:1px solid var(--arena);
+  border-radius:3px;
+  padding:22px 20px;
+  margin-bottom:24px;
+  text-align:left;
+}
+.recuerda .tit{
+  font-family:var(--sans);
+  font-size:11px; font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--verde);
+  margin-bottom:10px;
+}
+.recuerda p{
+  font-family:var(--serif);
+  font-size:17px; line-height:1.5;
+}
+
+.wa{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%;
+  font-family:var(--sans);
+  font-size:13px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--blanco);
+  background:var(--azul);
+  border-radius:3px;
+  padding:18px;
+  text-decoration:none;
+  transition:background .16s;
+}
+.wa:hover{ background:var(--azul-claro); }
+.wa svg{ width:19px; height:19px; flex:none; }
+
+/* ================= PANTALLAS GRANDES ================= */
+@media (min-width:600px){
+  body{ padding:40px 20px; align-items:flex-start; }
+  .hoja{
+    min-height:0;
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 18px 60px rgba(0,0,0,.34);
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="hoja">
+
+  <header class="cab">
+    <div class="mono">Marta &amp; Felipe</div>
+    <h1>Torneo de Golf</h1>
+    <div class="sub">Ryder Cup de Llanes</div>
+    <div class="meta">Sábado 10 de octubre · 2026<br>Golf de Llanes · La Cuesta</div>
+  </header>
+
+  <!-- ============ FORMULARIO ============ -->
+  <main class="cuerpo" id="vista-form">
+
+    <p class="intro">Necesito tres datos para cerrar las salidas y montaros en la&nbsp;app.</p>
+
+    <form id="form" novalidate>
+
+      <div class="campo">
+        <label for="nombre">Tu nombre para la federación</label>
+        <p class="ayuda">Tal y como aparece en tu licencia.</p>
+        <input type="text" id="nombre" name="nombre" autocomplete="name"
+               placeholder="Nombre y apellidos" required>
+        <p class="fallo" id="fallo-nombre">Escribe tu nombre completo.</p>
+      </div>
+
+      <div class="campo">
+        <label for="handicap">Tu hándicap</label>
+        <p class="ayuda">El exacto, con decimales si lo tienes.</p>
+        <input type="number" id="handicap" name="handicap"
+               inputmode="decimal" step="0.1" min="0" max="54"
+               placeholder="Ej. 18,4" required>
+        <p class="fallo" id="fallo-handicap">Pon un hándicap entre 0 y 54.</p>
+      </div>
+
+      <div class="campo">
+        <span class="etq">¿Tienes ya la app Golf GameBook?</span>
+        <div class="opciones">
+          <label class="opcion">
+            <input type="radio" name="app" value="si" required>
+            <span>Sí</span>
+          </label>
+          <label class="opcion">
+            <input type="radio" name="app" value="no" required>
+            <span>No</span>
+          </label>
+        </div>
+        <p class="fallo" id="fallo-app">Elige una opción.</p>
+
+        <div class="nota" id="nota-si">
+          <p>Agrégame como amigo para añadirte al torneo.</p>
+          <span class="firma">Felipe Sordo Alonso</span>
+        </div>
+
+        <div class="nota" id="nota-no">
+          <p>Descárgatela y añádeme como amigo para poder añadirte al torneo.
+             La encuentras como <strong>Golf GameBook</strong> en App&nbsp;Store y Google&nbsp;Play.</p>
+          <span class="firma">Felipe Sordo Alonso</span>
+        </div>
+      </div>
+
+      <button type="submit" id="enviar">Enviar inscripción</button>
+    </form>
+  </main>
+
+  <p class="pie" id="pie">Entre el Cantábrico y los Picos de Europa</p>
+
+  <!-- ============ GRACIAS ============ -->
+  <section class="gracias" id="vista-gracias">
+    <div class="tick">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#F5F1E8" stroke-width="2.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 6 9 17l-5-5"/>
+      </svg>
+    </div>
+
+    <h2>¡Apuntado!</h2>
+    <p class="lead">Nos vemos el sábado 10 en La&nbsp;Cuesta.</p>
+
+    <div class="recuerda">
+      <div class="tit">Un último paso</div>
+      <p id="texto-recuerda"></p>
+    </div>
+
+    <a class="wa" id="boton-wa" href="#">
+      <svg viewBox="0 0 24 24" fill="#FFFDF9" aria-hidden="true">
+        <path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4z"/>
+        <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/>
+      </svg>
+      <span>Avisar a Felipe</span>
+    </a>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURACIÓN — rellena estas dos constantes
+   ------------------------------------------------------------
+   TELEFONO      Tu móvil en formato internacional, sin + ni espacios.
+                 España: 34 + los 9 dígitos.  Ej: "34600112233"
+
+   HOJA_URL      URL del despliegue de Google Apps Script que
+                 escribe en la hoja de cálculo (ver _apps-script.gs).
+                 Déjala vacía y el formulario funcionará igual,
+                 solo que la respuesta llegará por WhatsApp.
+   ============================================================ */
+const TELEFONO = "34XXXXXXXXX";
+const HOJA_URL = "";
+
+const form     = document.getElementById('form');
+const notaSi   = document.getElementById('nota-si');
+const notaNo   = document.getElementById('nota-no');
+const enviar   = document.getElementById('enviar');
+
+/* Los textos viven aquí y no duplicados en el HTML, para que el
+   mensaje del formulario y el de la pantalla final no se desincronicen. */
+const MENSAJE = {
+  si: 'Agrégame como amigo en Golf GameBook para añadirte al torneo.',
+  no: 'Descárgate Golf GameBook y añádeme como amigo para poder añadirte al torneo.'
+};
+
+/* ---------- mensaje condicional, en vivo ---------- */
+form.querySelectorAll('input[name=app]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    notaSi.classList.toggle('ver', radio.value === 'si');
+    notaNo.classList.toggle('ver', radio.value === 'no');
+    marcarFallo('app', false);
+  });
+});
+
+/* ---------- validación ---------- */
+function marcarFallo(campo, hay){
+  const aviso = document.getElementById('fallo-' + campo);
+  aviso.classList.toggle('ver', hay);
+  const input = document.getElementById(campo);
+  if(input) input.classList.toggle('mal', hay);
+}
+
+function validar(){
+  const nombre   = document.getElementById('nombre').value.trim();
+  const handicap = document.getElementById('handicap').value.trim();
+  const app      = form.querySelector('input[name=app]:checked');
+
+  // Dos palabras: queremos nombre y apellido para cuadrarlo con la federación.
+  const nombreMal   = nombre.split(/\s+/).filter(Boolean).length < 2;
+  const hcp         = parseFloat(handicap.replace(',', '.'));
+  const handicapMal = handicap === '' || isNaN(hcp) || hcp < 0 || hcp > 54;
+
+  marcarFallo('nombre',   nombreMal);
+  marcarFallo('handicap', handicapMal);
+  marcarFallo('app',      !app);
+
+  if(nombreMal || handicapMal || !app) return null;
+  return { nombre, handicap: hcp, app: app.value };
+}
+
+/* ---------- envío ---------- */
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const datos = validar();
+  if(!datos){
+    form.querySelector('.mal, .fallo.ver')?.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  enviar.disabled = true;
+  enviar.textContent = 'Enviando…';
+
+  if(HOJA_URL){
+    // text/plain evita el preflight CORS; Apps Script lo lee en e.postData.contents.
+    // Con no-cors no podemos leer la respuesta, así que el fallo se cubre
+    // con el botón de WhatsApp de la pantalla final.
+    try{
+      await fetch(HOJA_URL, {
+        method : 'POST',
+        mode   : 'no-cors',
+        headers: { 'Content-Type':'text/plain;charset=utf-8' },
+        body   : JSON.stringify({ ...datos, fecha:new Date().toISOString() })
+      });
+    }catch(err){ /* la pantalla final ofrece WhatsApp como respaldo */ }
+  }
+
+  mostrarGracias(datos);
+});
+
+function mostrarGracias(datos){
+  document.getElementById('texto-recuerda').textContent = MENSAJE[datos.app];
+
+  const texto =
+    `Torneo de Golf · Marta & Felipe\n\n` +
+    `Nombre federación: ${datos.nombre}\n` +
+    `Hándicap: ${String(datos.handicap).replace('.', ',')}\n` +
+    `Golf GameBook: ${datos.app === 'si' ? 'Ya la tengo' : 'Aún no la tengo'}`;
+
+  // Si no hay teléfono puesto, el botón sobra: la inscripción ya viajó
+  // a la hoja de cálculo y un enlace de WhatsApp roto solo confunde.
+  const boton = document.getElementById('boton-wa');
+  if(/^\d{8,15}$/.test(TELEFONO)){
+    boton.href = `https://wa.me/${TELEFONO}?text=${encodeURIComponent(texto)}`;
+  }else{
+    boton.style.display = 'none';
+  }
+
+  document.getElementById('vista-form').style.display = 'none';
+  document.getElementById('pie').style.display = 'none';
+  document.getElementById('vista-gracias').classList.add('ver');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+</body>
+</html>

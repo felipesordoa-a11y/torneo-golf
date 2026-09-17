@@ -1,0 +1,8 @@
+# Renderizador local para previsualizar el formulario: no pinta nada en el repo
+_ver
+_ver.swift
+
+# Capturas de prueba
+_v*.png
+
+.DS_Store
