@@ -226,15 +226,6 @@ input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0
   font-size:17px; line-height:1.5;
   color:var(--tinta);
 }
-.nota .firma{
-  display:block;
-  font-family:var(--sans);
-  font-size:11px; font-weight:500;
-  letter-spacing:.13em; text-transform:uppercase;
-  color:var(--oliva);
-  margin-top:10px;
-}
-
 /* ---- botón ---- */
 button{
   width:100%;
@@ -385,16 +376,10 @@ button:disabled{ opacity:.55; cursor:default; }
         </div>
         <p class="fallo" id="fallo-app">Elige una opción.</p>
 
-        <div class="nota" id="nota-si">
-          <p>Agrégame como amigo para añadirte al torneo.</p>
-          <span class="firma">Felipe Sordo Alonso</span>
-        </div>
-
-        <div class="nota" id="nota-no">
-          <p>Descárgatela y añádeme como amigo para poder añadirte al torneo.
-             La encuentras como <strong>Golf GameBook</strong> en App&nbsp;Store y Google&nbsp;Play.</p>
-          <span class="firma">Felipe Sordo Alonso</span>
-        </div>
+        <!-- El texto lo pone el script desde MENSAJE, para que este aviso
+             y el de la pantalla final no puedan desincronizarse. -->
+        <div class="nota" id="nota-si"><p></p></div>
+        <div class="nota" id="nota-no"><p></p></div>
       </div>
 
       <button type="submit" id="enviar">Enviar inscripción</button>
@@ -451,12 +436,15 @@ const notaSi   = document.getElementById('nota-si');
 const notaNo   = document.getElementById('nota-no');
 const enviar   = document.getElementById('enviar');
 
-/* Los textos viven aquí y no duplicados en el HTML, para que el
-   mensaje del formulario y el de la pantalla final no se desincronicen. */
+/* Único sitio donde viven estos textos: se pintan tanto en el aviso
+   del formulario como en la pantalla final. */
 const MENSAJE = {
-  si: 'Agrégame como amigo en Golf GameBook para añadirte al torneo.',
-  no: 'Descárgate Golf GameBook y añádeme como amigo para poder añadirte al torneo.'
+  si: 'Genial, agrégame (Felipe Sordo Alonso) o déjame tu nombre de usuario.',
+  no: 'Descárgalo y agrégame (Felipe Sordo Alonso).'
 };
+
+notaSi.querySelector('p').textContent = MENSAJE.si;
+notaNo.querySelector('p').textContent = MENSAJE.no;
 
 /* ---------- mensaje condicional, en vivo ---------- */
 form.querySelectorAll('input[name=app]').forEach(radio => {
