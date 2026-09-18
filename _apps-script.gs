@@ -18,14 +18,41 @@
 
    Para comprobar que funciona: abre el formulario, envía una
    inscripción de prueba y mira si aparece la fila en la hoja.
+   ------------------------------------------------------------
+   TRAS CUALQUIER CAMBIO EN ESTE ARCHIVO
+
+   No basta con guardar: la URL /exec sigue sirviendo la versión
+   antigua hasta que publiques una nueva.
+     Implementar → Administrar implementaciones → ✏️
+       → Versión: Nueva versión → Implementar
+   La URL no cambia, así que index.html no hay que tocarlo.
    ============================================================ */
 
 var CABECERAS = ['Fecha', 'Nombre federación', 'Hándicap', 'Golf GameBook'];
+
+/* Protege las operaciones de lectura y escritura. El formulario NO la
+   usa: cualquiera puede inscribirse, pero solo quien tenga la clave
+   puede leer la hoja o modificar celdas. */
+var CLAVE = 'PON-AQUI-ALGO-LARGO-Y-RARO';
 
 function doPost(e) {
   try {
     var datos = JSON.parse(e.postData.contents);
     var hoja  = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+
+    // --- operaciones protegidas ---
+    if (datos.accion) {
+      if (datos.clave !== CLAVE) return respuesta({ ok: false, error: 'clave incorrecta' });
+
+      if (datos.accion === 'leer') {
+        return respuesta({ ok: true, filas: hoja.getDataRange().getValues() });
+      }
+      if (datos.accion === 'celda') {
+        hoja.getRange(datos.fila, datos.columna).setValue(datos.valor);
+        return respuesta({ ok: true });
+      }
+      return respuesta({ ok: false, error: 'accion desconocida' });
+    }
 
     // La primera vez dejamos la fila de cabeceras puesta y con formato.
     if (hoja.getLastRow() === 0) {
